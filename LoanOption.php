@@ -27,5 +27,37 @@ function ApiFetch($response){
        
         
 };
-ApiFetch($response)
+
+function UserInput($response, $category_limit){
+      $array =[];
+      $output = [];
+      foreach($response['entries'] as $row){
+            array_push($array,$row['Category']);
+        
+        }
+        $input_split =  explode(" ",$category_limit);
+        $category = $input_split[0];
+        $limit = $input_split[1];
+
+        if(in_array("$category",$array)){
+              $rec = 0;
+            while($rec < $limit){
+                  echo $rec+1 . "  " . $category . "\n";
+                  $rec++;
+            }
+        }
+
+        else{
+              echo "No Data Found";
+        }
+      
+
+};
+ApiFetch($response);
+echo "\n Enter Category and limit \n";
+
+$input_steam =fopen("php://stdin","r");
+$user_input = fgets($input_steam);
+UserInput($response,$user_input);
+
 ?>
